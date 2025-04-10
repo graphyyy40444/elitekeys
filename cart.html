@@ -962,7 +962,38 @@
             // SMS kod inputlarını yönet
             setupSmsInputs();
             
-// SMS tekrar gönder butonu
+            // SMS tekrar gönder butonu
+                       document.querySelector('.cart-summary').style.display = 'none';
+            return;
+        }
+        
+        cartItemsContainer.innerHTML = '';
+        
+        cart.forEach(item => {
+            const cartItemElement = document.createElement('div');
+            cartItemElement.className = 'cart-item';
+            cartItemElement.innerHTML = `
+                <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                <div class="cart-item-details">
+                    <h3 class="cart-item-name">${item.name}</h3>
+                    <p class="cart-item-price">${formatPrice(item.price)} TL</p>
+                    <div class="cart-item-actions">
+                        <div class="quantity-control">
+                            <button class="quantity-button" onclick="decreaseQuantity('${item.id}')">-</button>
+                            <span class="quantity-display">${item.quantity}</span>
+                            <button class="quantity-button" onclick="increaseQuantity('${item.id}')">+</button>
+                        </div>
+                        <button class="remove-item" onclick="removeItem('${item.id}')"><i class="fas fa-trash"></i> Kaldır</button>
+                    </div>
+                </div>
+            `;
+            cartItemsContainer.appendChild(cartItemElement);
+        });
+    }
+    
+    // Miktarı artır
+    function increaseQuantity(productId)
+                // SMS tekrar gönder butonu
         document.getElementById('sms-resend').addEventListener('click', resendSms);
     });
 
@@ -1140,6 +1171,5 @@
         updateSummary();
     });
 </script>
-</body>
-</html>
-
+</body> 
+</html> 
